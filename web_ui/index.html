@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocrateAI Dual-Scale Agora Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.260.0/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(135deg, #0B0F19 0%, #05080F 100%); color: #E2E8F0; font-family: 'Inter', sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); border: 1px solid rgba(51, 65, 85, 0.4); border-radius: 1rem; }
+        .math-font { font-family: 'Fira Code', monospace; }
+        .tab-active { background: linear-gradient(135deg, rgba(14, 165, 233, 0.25), rgba(52, 211, 153, 0.15)); color: #38bdf8; }
+        .tab-inactive { color: #64748b; }
+        canvas { display: block; width: 100%; height: 100%; border-radius: 0.75rem; }
+        .gradient-text { background: linear-gradient(135deg, #0ea5e9, #34d399, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .metric-card { background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(51, 65, 85, 0.3); border-radius: 0.75rem; padding: 1rem; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen">
+    <header class="glass-panel p-4 m-4 flex justify-between items-center sticky top-4 z-50">
+        <div class="flex items-center gap-4">
+            <div class="p-2 bg-gradient-to-br from-cyan-500 via-emerald-500 to-purple-600 rounded-xl">
+                <i data-lucide="brain-circuit" class="text-white text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-white tracking-wide gradient-text">SocrateAI Dual-Scale Agora Lab</h1>
+                <p class="text-xs text-slate-400">Interactive Visualizations | Citizen Science</p>
+            </div>
+        </div>
+        <nav class="flex gap-2">
+            <a href="#" onclick="switchTab('overview')" id="btn-overview" class="tab-active px-4 py-2 text-sm font-semibold flex items-center gap-2">
+                <i data-lucide="home" class="w-4 h-4"></i> Overview
+            </a>
+            <a href="#" onclick="switchTab('experiments')" id="btn-experiments" class="tab-inactive px-4 py-2 text-sm font-semibold flex items-center gap-2">
+                <i data-lucide="flask" class="w-4 h-4"></i> Experiments
+            </a>
+            <a href="#" onclick="switchTab('moire')" id="btn-moire" class="tab-inactive px-4 py-2 text-sm font-semibold flex items-center gap-2">
+                <i data-lucide="layers" class="w-4 h-4"></i> Moiré
+            </a>
+            <a href="#" onclick="switchTab('kuramoto')" id="btn-kuramoto" class="tab-inactive px-4 py-2 text-sm font-semibold flex items-center gap-2">
+                <i data-lucide="activity" class="w-4 h-4"></i> Kuramoto
+            </a>
+        </nav>
+    </header>
+
+    <main class="p-4 space-y-4">
+        <section id="overview-section">
+            <div class="glass-panel p-6">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-3 mb-4">
+                    <i data-lucide="sparkles" class="text-cyan-400"></i> Welcome to the Dual-Scale Universe
+                </h2>
+                <p class="text-slate-300 mb-6">This platform demonstrates how microscopic quantum geometry holographically projects macroscopic reality.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-4">The Four Principles</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="metric-card p-4 text-center">
+                                <i data-lucide="scale" class="text-cyan-400 text-3xl mx-auto mb-3"></i>
+                                <h4 class="font-bold text-white">P1: Self-Dual Bound</h4>
+                                <p class="text-xs text-slate-400 mt-2">max(R, α'/R) ≥ √α'</p>
+                            </div>
+                            <div class="metric-card p-4 text-center">
+                                <i data-lucide="link" class="text-emerald-400 text-3xl mx-auto mb-3"></i>
+                                <h4 class="font-bold text-white">P2: Sym² Lock</h4>
+                                <p class="text-xs text-slate-400 mt-2">Φ = ψ ⊗ ψ</p>
+                            </div>
+                            <div class="metric-card p-4 text-center">
+                                <i data-lucide="pin" class="text-purple-400 text-3xl mx-auto mb-3"></i>
+                                <h4 class="font-bold text-white">P3: Discrete Pins</h4>
+                                <p class="text-xs text-slate-400 mt-2">E ∝ 1/|disc|</p>
+                            </div>
+                            <div class="metric-card p-4 text-center">
+                                <i data-lucide="refresh-cw" class="text-orange-400 text-3xl mx-auto mb-3"></i>
+                                <h4 class="font-bold text-white">P4: T-Dual Bounce</h4>
+                                <p class="text-xs text-slate-400 mt-2">R_eff = max(r, α'/r)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metric-card p-4">
+                        <h3 class="text-lg font-bold text-white mb-4">Quick Access</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="switchTab('experiments')" class="bg-slate-800/50 hover:bg-purple-900/30 text-purple-400 py-3 px-4 rounded text-sm">Experiments</button>
+                            <button onclick="switchTab('moire')" class="bg-slate-800/50 hover:bg-cyan-900/30 text-cyan-400 py-3 px-4 rounded text-sm">Moiré</button>
+                            <button onclick="switchTab('kuramoto')" class="bg-slate-800/50 hover:bg-emerald-900/30 text-emerald-400 py-3 px-4 rounded text-sm">Kuramoto</button>
+                            <button onclick="initKramers()" class="bg-slate-800/50 hover:bg-orange-900/30 text-orange-400 py-3 px-4 rounded text-sm">Kramers-Wannier</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiments-section" class="hidden">
+            <div class="glass-panel p-6">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <i data-lucide="flask" class="text-purple-400"></i> W4 Experiments: Zero-Cost Digital Lab
+                </h2>
+                <p class="text-slate-300 mb-6">Run these experiments directly in your browser</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="metric-card p-4">
+                        <h3 class="font-bold text-white mb-2 flex items-center gap-2">
+                            <i data-lucide="thermometer-snowflake" class="text-orange-400"></i> Kramers-Wannier
+                        </h3>
+                        <p class="text-xs text-slate-400 mb-3">Verify K_c = log(1+√2)/2 ≈ 0.4407</p>
+                        <button onclick="initKramers()" class="w-full bg-orange-600/30 text-orange-400 py-2 px-4 rounded text-sm">Run</button>
+                        <div class="mt-3 bg-slate-900/50 rounded p-2 h-32"><canvas id="kw-canvas"></canvas></div>
+                        <div class="text-xs text-slate-500 mt-2">Status: <span id="kw-status" class="text-orange-400">Ready</span></div>
+                    </div>
+                    <div class="metric-card p-4">
+                        <h3 class="font-bold text-white mb-2 flex items-center gap-2">
+                            <i data-lucide="wave-square" class="text-pink-400"></i> Donoho-Stark
+                        </h3>
+                        <p class="text-xs text-slate-400 mb-3">Verify |supp(x)|·|supp(x̂)| ≥ N</p>
+                        <button onclick="initDonoho()" class="w-full bg-pink-600/30 text-pink-400 py-2 px-4 rounded text-sm">Run</button>
+                        <div class="mt-3 bg-slate-900/50 rounded p-2 h-32"><canvas id="ds-canvas"></canvas></div>
+                        <div class="text-xs text-slate-500 mt-2">Status: <span id="ds-status" class="text-pink-400">Ready</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="moire-section" class="hidden">
+            <div class="glass-panel p-4">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2 mb-4">
+                    <i data-lucide="layers" class="text-cyan-400"></i> Moiré Holography
+                </h2>
+                <p class="text-xs text-slate-400 mb-4">Rotate two lattices to create macroscopic Moiré patterns. Try magic angles (~1.1°, ~2.5°).</p>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <div class="metric-card p-4">
+                        <label class="text-xs font-semibold text-slate-300 flex justify-between mb-2">
+                            <span>Twist Angle</span>
+                            <span id="moire-angle" class="math-font text-cyan-300">0.00°</span>
+                        </label>
+                        <input type="range" id="moire-slider" min="0" max="15" step="0.05" value="0" class="w-full accent-cyan-500" oninput="renderMoire()">
+                    </div>
+                    <div class="lg:col-span-2 bg-slate-900/50 rounded p-2"><canvas id="moire-canvas"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kuramoto-section" class="hidden">
+            <div class="glass-panel p-4">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2 mb-4">
+                    <i data-lucide="activity" class="text-purple-400"></i> Kuramoto Model
+                </h2>
+                <p class="text-xs text-slate-400 mb-4">Chaotic oscillators synchronize when coupling increases</p>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <div class="space-y-4">
+                        <div class="metric-card p-4">
+                            <label class="text-xs font-semibold text-slate-300 flex justify-between mb-2">
+                                <span>Coupling (K)</span>
+                                <span id="kw-coupling" class="math-font text-purple-300">0.0</span>
+                            </label>
+                            <input type="range" id="kw-slider" min="0" max="5" step="0.1" value="0" class="w-full accent-purple-500">
+                        </div>
+                        <div class="metric-card p-4">
+                            <div class="text-xs text-slate-400 flex justify-between mb-1">
+                                <span>Coherence (r)</span>
+                                <span id="kw-coherence" class="math-font text-emerald-400">0.00</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-2 rounded-full"><div id="kw-bar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 bg-slate-900/50 rounded p-2"><canvas id="kw-main-canvas"></canvas></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Initialize Lucide
+        document.addEventListener('DOMContentLoaded', () => { if (typeof lucide !== 'undefined') lucide.createIcons(); });
+        
+        // Tab switching
+        function switchTab(tab) {
+            document.querySelectorAll('section[id$="-section"]').forEach(s => s.classList.add('hidden'));
+            document.querySelectorAll('[id^="btn-"]').forEach(b => b.className = 'tab-inactive px-4 py-2 text-sm font-semibold flex items-center gap-2');
+            document.getElementById(`btn-${tab}`).className = 'tab-active px-4 py-2 text-sm font-semibold flex items-center gap-2';
+            document.getElementById(`${tab}-section`).classList.remove('hidden');
+            
+            if (tab === 'moire') initMoire();
+            else if (tab === 'kuramoto') initKuramoto();
+            else if (tab === 'experiments') { initKramers(); initDonoho(); }
+        }
+        
+        // Initialize on load
+        window.addEventListener('load', () => { switchTab('overview'); });
+    </script>
+    
+    <script src="js/moire.js"></script>
+    <script src="js/kuramoto.js"></script>
+    <script src="js/kramers.js"></script>
+    <script src="js/donoho.js"></script>
+</body>
+</html>
